@@ -1,0 +1,12 @@
+{
+  "name": "httplog_service",
+  "components": {
+    "webserver": {
+      "image": "luebken/httplog",
+      "ports": 8000,
+      "domains": {
+        "8000": "httplog.leaseweb-alpha.giantswarm.io"
+      }
+    }
+  }
+}
