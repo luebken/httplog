@@ -22,13 +22,18 @@ spec:
           lifecycle:
             postStart:
               httpGet:
-                path: "poststart"
+                path: poststart
                 port: 8000 
-#            preStop:
-#              httpGet:
-#                path: "prestop"
-#                port: 8000 
-#              exec:
-#                command:
-#                  - "/bin/echo"
-#                  - "hi"
+            preStop:
+              httpGet:
+                path: prestop
+                port: 8000
+          livenessProbe:
+            httpGet:
+              path: livenessProbe
+              port: 8000
+          readinessProbe:
+            httpGet:
+              path: readinessProbe
+              port: 8000
+            #periodSeconds: 1
