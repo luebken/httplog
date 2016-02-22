@@ -4,4 +4,4 @@ ADD ./httplog /usr/bin/
 
 EXPOSE 8000
 
-ENTRYPOINT ["httplog"]
+CMD ["httplog"]
