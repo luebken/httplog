@@ -5,6 +5,9 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 func handle(w http.ResponseWriter, r *http.Request) {
@@ -15,6 +18,14 @@ func handle(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", handle)
-	log.Println("Starting httplog server at 127.0.0.1:8000")
-	http.ListenAndServe(":8000", nil)
+
+	go func() {
+		log.Println("Starting httplog server at 127.0.0.1:8000")
+		log.Fatal(http.ListenAndServe(":8000", nil))
+	}()
+
+	// Handle SIGINT and SIGTERM.
+	ch := make(chan os.Signal)
+	signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM)
+	log.Println(<-ch)
 }
