@@ -24,8 +24,10 @@ func main() {
 		log.Fatal(http.ListenAndServe(":8000", nil))
 	}()
 
-	// Handle SIGINT and SIGTERM.
+	// Handle SIGTERM.
 	ch := make(chan os.Signal)
-	signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM)
-	log.Println(<-ch)
+	signal.Notify(ch, syscall.SIGTERM)
+	for {
+		log.Printf("got signal '%v'. ignoring.\n", <-ch)
+	}
 }
